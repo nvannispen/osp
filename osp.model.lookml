@@ -18,3 +18,21 @@
     - join: orders
       relationship: many_to_one
       sql_on: ${order_items.order_id} = ${orders.id}
+      
+    - join: supplier_orders
+      relationship: one_to_one
+      sql_on: ${orders.id} = ${supplier_orders.order_id}
+    
+    - join: order_shipments
+      relationship: one_to_one
+      sql_on: ${supplier_orders.id} = ${order_shipments.supplier_order_id} 
+      
+- explore: order_shipments
+  joins:
+    - join: supplier_orders
+      relationship: one_to_one
+      sql_on: ${order_shipments.supplier_order_id} = ${supplier_orders.id}
+      
+    - join: orders
+      relationship: one_to_one
+      sql_on: ${supplier_orders.order_id} = ${orders.id}

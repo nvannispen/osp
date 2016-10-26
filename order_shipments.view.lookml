@@ -133,11 +133,35 @@
     type: time
     timeframes: [time, date, week, month]
     sql: ${TABLE}.updatedAt
+    
+  - dimension: shipping_time
+    type: number
+    sql: DATEDIFF(${delivered_time}, ${shipped_time})
 
+  - dimension: delinquent_shipment
+    type: yesno
+    sql: ${shipping_time} > 2
+    
+  - dimension: days_to_ship_tier
+    type: tier
+    sql: ${shipping_time}
+    tiers: [0,1,2,3,4,5,10,30]
+    style: integer
+    
+  - measure: count_delinquent
+    type: count
+    filters:
+      delinquent_shipment: yes
+    drill_fields: [order_id, delivered_time, shipped_time]
+      
   - measure: count
     type: count
     drill_fields: detail*
 
+  - measure: delinquent_percentage
+    type: number
+    sql: 1.0 * ${count_delinquent}/${count}
+    value_format_name: percent_2
 
   # ----- Sets of fields for drilling ------
   sets:
