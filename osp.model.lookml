@@ -18,3 +18,14 @@
     - join: orders
       relationship: many_to_one
       sql_on: ${order_items.order_id} = ${orders.id}
+      
+    # - join: order_item_details
+    #   relationship: one_to_many
+    
+- explore: orders
+#   joins: 
+#     - join: user_order_facts
+#       relationship: many_to_one
+#       sql_on: ${orders.user_id} = ${user_order_facts.user_id}
+
+- explore: user_order_facts
