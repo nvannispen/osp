@@ -12,6 +12,7 @@
       FROM opensky_devo.orders
       GROUP BY userId
     indexes: [user_id]
+#    sql_trigger_value: SELECT CURDATE()
             
 
   fields:

@@ -403,6 +403,16 @@
     type: sum
     sql: ${handling_price}
 
+  - dimension: user_order_sequence_number
+    type: number
+    sql: |
+      (
+        SELECT COUNT(*)
+        FROM orders o
+        WHERE o.id <= ${TABLE}.id
+          AND o.userId = ${TABLE}.userId
+      )
+
 
 ##### Flagged for Deletion #####
 

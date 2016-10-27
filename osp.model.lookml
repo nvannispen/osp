@@ -23,9 +23,15 @@
     #   relationship: one_to_many
     
 - explore: orders
+  joins:
+    - join: identities
+      relationship: many_to_one
+      sql_on: ${orders.user_id} = ${identities.id}
+      
 #   joins: 
 #     - join: user_order_facts
 #       relationship: many_to_one
 #       sql_on: ${orders.user_id} = ${user_order_facts.user_id}
 
 - explore: user_order_facts
+
